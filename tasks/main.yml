@@ -1,2 +1,34 @@
 ---
-# tasks file for ansible-role-init
+- name: Ensure stretch-backports are enabled
+  apt_repository:
+    repo: deb http://ftp.debian.org/debian stretch-backports main
+    state: present
+    filename: backports
+
+- name: Install apt packages
+  apt:
+    name: "{{ apt_packages }}"
+    state: latest
+    default_release: stretch-backports
+    install_recommends: no
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Create default users
+  user:
+    name: "{{ item.user_name }}"
+    comment: "{{ item.user_comment }}"
+    expires: -1
+    generate_ssh_key: yes
+    # group: "{{ item.user_name }}"
+    groups: "{{ item.user_groups }}"
+    home: "{{ item.user_home }}"
+    password: "{{ item.user_password }}"
+    shell: /bin/zsh
+    ssh_key_bits: 4096
+    ssh_key_comment: fake_key
+    ssh_key_file: .ssh/id_rsa
+    ssh_key_type: rsa
+    state: present
+    update_password: on_create
+  loop: "{{ init_users|flatten(levels=1) }}"

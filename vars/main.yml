@@ -1,2 +1,30 @@
 ---
-# vars file for ansible-role-init
+apt_packages:
+  - ansible
+  - apt-transport-https
+  - build-essential
+  - ca-certificates
+  - cowsay
+  - curl
+  - dkms
+  - dnsutils
+  - fonts-powerline
+  - git
+  - gitk
+  - gnupg2
+  - htop
+  - libfortune-perl
+  - man
+  - mlocate
+  - module-assistant
+  - net-tools
+  - nmap
+  - powerline
+  - python-dev
+  - software-properties-common
+  - sudo
+  - tmux
+  - tree
+  - unzip
+  - vim
+  - zsh

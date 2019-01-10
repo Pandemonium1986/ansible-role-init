@@ -1,2 +1,7 @@
 ---
-# defaults file for ansible-role-init
+init_users:
+  - user_name: pandemonium
+    user_comment: Pandemonium1986
+    user_groups: ['cdrom', 'floppy', 'audio', 'dip', 'video', 'plugdev', 'netdev']
+    user_home: /home/pandemonium
+    user_password: $6$mysecretsaltforv$fSmmonYaOlO.xHOSX8j0YMpKoYauhusTgem9ehwUaYzBVvjHDjk6g1V7fSoVdM6CkP0JdVblosUYlgtD5PolF1
