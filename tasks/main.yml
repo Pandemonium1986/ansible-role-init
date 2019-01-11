@@ -32,3 +32,11 @@
     state: present
     update_password: on_create
   loop: "{{ init_users|flatten(levels=1) }}"
+
+- name: Copy ssh banner
+  copy:
+    src: banner.txt
+    dest: /etc/banner.txt
+    owner: root
+    group: root
+    mode: 0640
