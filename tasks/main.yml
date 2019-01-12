@@ -18,6 +18,7 @@
   user:
     name: "{{ item.user_name }}"
     comment: "{{ item.user_comment }}"
+    append: yes
     expires: -1
     generate_ssh_key: yes
     # group: "{{ item.user_name }}"
