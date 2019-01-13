@@ -15,7 +15,7 @@ init_users:
   - user_name: pandemonium
     user_group: ['cdrom', 'floppy', 'audio', 'dip', 'video', 'plugdev', 'netdev']
     user_home: /home/pandemonium
-    user_password: dumb  
+    user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.  
 ```
 
 From vars/main.yml :
