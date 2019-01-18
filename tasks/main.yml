@@ -41,3 +41,9 @@
     owner: root
     group: root
     mode: 0640
+  register: bannerResults
+
+- name: Quick and Dirty modification of sshd_config
+  shell: echo 'Banner /etc/banner.txt' >> /etc/ssh/sshd_config
+  when: bannerResults.changed == true
+  notify: Restart sshd
