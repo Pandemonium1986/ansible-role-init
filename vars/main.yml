@@ -1,6 +1,5 @@
 ---
 apt_packages:
-  - ansible
   - apt-transport-https
   - build-essential
   - ca-certificates
