@@ -1,5 +1,10 @@
 # Ansible role : Init
 
+![](https://img.shields.io/github/release/Pandemonium1986/ansible-role-init.svg)
+![](https://img.shields.io/github/repo-size/Pandemonium1986/ansible-role-init.svg)
+![](https://img.shields.io/github/release-date/Pandemonium1986/ansible-role-init.svg)
+![](https://img.shields.io/github/license/Pandemonium1986/ansible-role-init.svg)
+
 Install and configure a lot of packages to initialize a linux environment.
 
 ## Requirements
@@ -30,21 +35,25 @@ apt_packages:
   - dkms
   - dnsutils
   - fonts-powerline
+  - git
+  - gitk
   - gnupg2
   - htop
   - libfortune-perl
   - man
   - mlocate
-  - module-assistant\
+  - module-assistant
   - net-tools
   - nmap
   - powerline
   - python-dev
   - software-properties-common
   - sudo
+  - tmux
   - tree
   - unzip
   - vim
+  - zsh
 ```
 
 ## Dependencies
