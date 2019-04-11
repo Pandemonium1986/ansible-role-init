@@ -1,0 +1,30 @@
+---
+_packages:
+  - bind-utils
+  - ca-certificates
+  - cowsay
+  - curl
+  - dkms
+  - fortune-mod
+  - git
+  - gitk
+  - gnupg2
+  - htop
+  - kernel-devel
+  - man
+  - mlocate
+  - net-tools
+  - nmap
+  - python-devel
+  - python2-pip
+  - ShellCheck
+  - sudo
+  - tmux
+  - tree
+  - unzip
+  - vim
+  - yum-plugin-priorities
+  - zsh
+  # - yum groupinstall "Development Tools"
+  # - fonts-powerline *
+  # - powerline *

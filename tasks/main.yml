@@ -1,18 +1,26 @@
 ---
-- name: Ensure stretch-backports are enabled
-  apt_repository:
-    repo: deb http://ftp.debian.org/debian stretch-backports main
-    state: present
-    filename: backports
+# - name: Ensure stretch-backports are enabled
+#   apt_repository:
+#     repo: deb http://ftp.debian.org/debian stretch-backports main
+#     state: present
+#     filename: backports
 
-- name: Install apt packages
-  apt:
-    name: "{{ apt_packages }}"
+- name: Include OS-specific variables (Debian).
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+  when: ansible_os_family == 'Debian'
+
+- name: Include OS-specific variables (RedHat).
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+  when: ansible_os_family == 'RedHat'
+
+- name: Install packages
+  package:
+    name: "{{ _packages }}"
     state: latest
-    default_release: stretch-backports
-    install_recommends: no
-    update_cache: yes
-    cache_valid_time: 86400
+    # default_release: stretch-backports
+    # install_recommends: no
+    # update_cache: yes
+    # cache_valid_time: 86400
 
 - name: Create default users
   user:
@@ -22,7 +30,7 @@
     expires: -1
     generate_ssh_key: yes
     # group: "{{ item.user_name }}"
-    groups: "{{ item.user_groups }}"
+    # groups: "{{ item.user_groups }}"
     home: "{{ item.user_home }}"
     password: "{{ item.user_password }}"
     shell: /bin/zsh
@@ -41,9 +49,12 @@
     owner: root
     group: root
     mode: 0640
-  register: bannerResults
 
-- name: Quick and Dirty modification of sshd_config
-  shell: echo 'Banner /etc/banner.txt' >> /etc/ssh/sshd_config
-  when: bannerResults.changed == true
-  notify: Restart sshd
+- name: Ensure Banner is enabled
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: '^#Banner none$'
+    line: 'Banner /etc/banner.txt'
+    backrefs: yes
+  notify: RESTART_SSHD

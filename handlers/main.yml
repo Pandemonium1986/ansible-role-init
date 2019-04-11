@@ -3,3 +3,4 @@
   systemd:
     name: sshd
     state: restarted
+  listen: RESTART_SSHD

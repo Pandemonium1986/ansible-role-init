@@ -1,5 +1,5 @@
 ---
-apt_packages:
+_packages:
   - apt-transport-https
   - build-essential
   - ca-certificates
@@ -20,6 +20,8 @@ apt_packages:
   - nmap
   - powerline
   - python-dev
+  - python-pip
+  - shellcheck
   - software-properties-common
   - sudo
   - tmux
