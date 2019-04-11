@@ -1,10 +1,4 @@
 ---
-# - name: Ensure stretch-backports are enabled
-#   apt_repository:
-#     repo: deb http://ftp.debian.org/debian stretch-backports main
-#     state: present
-#     filename: backports
-
 - name: Include OS-specific variables (Debian).
   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
   when: ansible_os_family == 'Debian'
@@ -13,10 +7,16 @@
   include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
   when: ansible_os_family == 'RedHat'
 
+- include_tasks: setup-{{ ansible_distribution }}.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: setup-{{ ansible_distribution }}.yml
+  when: ansible_os_family == 'RedHat'
+
 - name: Install packages
   package:
     name: "{{ _packages }}"
-    state: latest
+    state: present
     # default_release: stretch-backports
     # install_recommends: no
     # update_cache: yes

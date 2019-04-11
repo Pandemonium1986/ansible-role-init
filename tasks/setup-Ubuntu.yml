@@ -1,0 +1,6 @@
+---
+- name: Ensure bionic-backports are enabled
+  apt_repository:
+    repo: deb http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse
+    state: present
+    filename: backports

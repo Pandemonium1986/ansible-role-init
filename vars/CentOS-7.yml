@@ -25,6 +25,5 @@ _packages:
   - vim
   - yum-plugin-priorities
   - zsh
-  # - yum groupinstall "Development Tools"
   # - fonts-powerline *
   # - powerline *

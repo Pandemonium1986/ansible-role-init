@@ -1,0 +1,6 @@
+---
+- name: Ensure stretch-backports are enabled
+  apt_repository:
+    repo: deb http://ftp.debian.org/debian stretch-backports main
+    state: present
+    filename: backports
