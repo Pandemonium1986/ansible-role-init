@@ -17,10 +17,12 @@
   package:
     name: "{{ _packages }}"
     state: present
-    # default_release: stretch-backports
-    # install_recommends: no
-    # update_cache: yes
-    # cache_valid_time: 86400
+
+- name: Ensure group "user_name" exists
+  group:
+    name: "{{ item.user_name }}"
+    state: present
+  loop: "{{ init_users|flatten(levels=1) }}"
 
 - name: Create default users
   user:
@@ -30,7 +32,7 @@
     expires: -1
     generate_ssh_key: yes
     # group: "{{ item.user_name }}"
-    # groups: "{{ item.user_groups }}"
+    groups: "{{ item.user_groups | default (item.user_name) }}"
     home: "{{ item.user_home }}"
     password: "{{ item.user_password }}"
     shell: /bin/zsh
