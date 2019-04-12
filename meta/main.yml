@@ -1,18 +1,18 @@
 ---
 galaxy_info:
-  role_name: init
-  author: Michael Maffait
-  description: Install and configure a lot of packages to initialize a linux environment
-  # company: your company (optional)
-  license: MIT
+  role_name:           init
+  author:              Michael Maffait
+  description:         Install and configure a lot of packages to initialize a linux environment
+  # company:           your company (optional)
+  license:             MIT
   min_ansible_version: 2.7
-  github_branch: master
+  github_branch:       master
   platforms:
-    - name: Debian
+    - name:            Debian
       versions:
         - stretch
   galaxy_tags:
     - init
     - system
     - common
-dependencies: []
+dependencies:          []

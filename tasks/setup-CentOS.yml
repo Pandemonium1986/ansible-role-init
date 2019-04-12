@@ -1,11 +1,11 @@
 ---
-- name: Ensure EPEL repository is enabled
+- name:         Ensure EPEL repository is enabled
   yum:
-    name: epel-release
-    state: present
+    name:       epel-release
+    state:      present
     enablerepo: extras
 
-- name: Install the 'Development tools' package group
+- name:         Install the 'Development tools' package group
   yum:
-    name: "@Development tools"
-    state: present
+    name:       "@Development tools"
+    state:      present
