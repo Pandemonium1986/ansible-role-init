@@ -9,7 +9,7 @@ Install and configure a lot of packages to initialize a linux environment.
 
 ## Requirements
 
-This roles is self contained and install packages from debian backports if needed.
+This roles is self contained. He install packages for debian, ubuntu, centos if needed.
 
 ## Role Variables
 
@@ -23,10 +23,10 @@ init_users:
     user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.  
 ```
 
-From vars/main.yml :
+From vars/main.yml (depends of distribution):
 
 ```yaml
-apt_packages:
+_packages:
   - apt-transport-https
   - build-essential
   - ca-certificates
@@ -63,9 +63,16 @@ None.
 ## Example Playbook
 
 ```yaml
-- hosts: servers
-  roles:
-    - { role: pandemonium1986.init }
+---
+- name :         Init Playbook
+  hosts :        pandama
+  become:        true
+  become_method: sudo
+  become_user:   root
+  tasks:
+    - import_role:
+        name:    pandemonium1986.init
+
 ```
 
 ## License
