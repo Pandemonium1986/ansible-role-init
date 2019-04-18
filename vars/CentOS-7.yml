@@ -16,7 +16,6 @@ _packages:
   - net-tools
   - nmap
   - python-devel
-  - python2-pip
   - ShellCheck
   - sudo
   - tmux

@@ -20,7 +20,6 @@ _packages:
   - nmap
   - powerline
   - python-dev
-  - python-pip
   - shellcheck
   - software-properties-common
   - sudo
