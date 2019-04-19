@@ -9,7 +9,7 @@ Install and configure a lot of packages to initialize a linux environment.
 
 ## Requirements
 
-This roles is self contained. He install packages for debian, ubuntu, centos if needed.
+This role is self contained. He installs packages for debian, ubuntu, centos if needed.
 
 ## Role Variables
 
@@ -64,7 +64,7 @@ None.
 
 ```yaml
 ---
-- name :         Init Playbook
+- name :         Init play
   hosts :        pandama
   become:        true
   become_method: sudo
