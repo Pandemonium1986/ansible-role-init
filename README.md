@@ -9,7 +9,7 @@ Install and configure a lot of packages to initialize a linux environment.
 
 ## Requirements
 
-This role is self contained. He installs packages for debian, ubuntu, centos if needed.
+This role is self contained. He installs packages for debian, ubuntu, linux mint, centos if needed.
 
 ## Role Variables
 
