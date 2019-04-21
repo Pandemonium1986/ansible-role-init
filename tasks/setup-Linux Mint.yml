@@ -1,0 +1,4 @@
+---
+- name:  Linux Mint setup empty task
+  debug:
+    msg: Nothing to do
