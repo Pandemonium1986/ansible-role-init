@@ -1,13 +1,19 @@
 ---
 dependency:
   name: galaxy
+  enabled: False
 driver:
   name: docker
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    image: centos:7
+  - name: debian9
+    hostname: debian9
+    image: pandemonium1986/debian9:latest
+    pull: True
+    pre_build_image: True
+    tty: True
+    override_command: False
 provisioner:
   name: ansible
   lint:
