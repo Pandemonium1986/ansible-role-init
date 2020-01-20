@@ -9,7 +9,7 @@ galaxy_info:
   github_branch:       master
   platforms:
     - name:            Debian
-      versions:        [ 'stretch' ]
+      versions:        [ 'stretch', 'buster' ]
     - name:            EL
       versions:        [ '7' ]
     - name:            Ubuntu
