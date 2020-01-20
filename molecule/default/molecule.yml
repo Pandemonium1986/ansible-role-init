@@ -1,26 +1,30 @@
 ---
 dependency:
-  name: galaxy
-  enabled: False
+  name:               galaxy
+  enabled:            false
 driver:
-  name: docker
+  name:               docker
 lint:
-  name: yamllint
+  name:               yamllint
 platforms:
-  - name: debian9
-    hostname: debian9
-    image: pandemonium1986/debian9:latest
-    pull: True
-    pre_build_image: True
-    tty: True
-    override_command: False
+  - name:             molecule-debian9
+    hostname:         debian9
+    image:            pandemonium1986/debian9:latest
+    pull:             true
+    pre_build_image:  true
+    tty:              true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged:       true
 provisioner:
-  name: ansible
+  name:               ansible
   lint:
-    name: ansible-lint
+    name:             ansible-lint
 scenario:
-  name: default
+  name:               default
 verifier:
-  name: testinfra
+  name:               testinfra
   lint:
-    name: flake8
+    name:             flake8
+  enabled:            false
