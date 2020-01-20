@@ -2,6 +2,6 @@
 init_users:
   - user_name:     pandemonium
     user_comment:  Pandemonium1986
-    user_groups:   ['pandemonium']
+    user_groups:   [ 'pandemonium' ]
     user_home:     /home/pandemonium
     user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.

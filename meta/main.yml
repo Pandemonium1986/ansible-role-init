@@ -2,17 +2,17 @@
 galaxy_info:
   role_name:           init
   author:              Michael Maffait
-  description:         Install and configure a lot of packages to initialize a linux environment
+  description:         Install and configure a lot of packages to initialize a linux environment  # yamllint disable-line rule:line-length
   # company:           your company (optional)
   license:             MIT
   min_ansible_version: 2.7
   github_branch:       master
   platforms:
     - name:            Debian
-      versions:        ['stretch']
+      versions:        [ 'stretch' ]
     - name:            EL
-      versions:        ['7']
+      versions:        [ '7' ]
     - name:            Ubuntu
-      versions:        ['bionic']
-  galaxy_tags:         ['init', 'system', 'common']
+      versions:        [ 'bionic' ]
+  galaxy_tags:         [ 'init', 'system', 'common' ]
 dependencies:          []

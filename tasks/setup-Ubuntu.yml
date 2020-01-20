@@ -1,6 +1,6 @@
 ---
 - name:           Ensure bionic-backports are enabled
   apt_repository:
-    repo:         deb http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse
+    repo:         deb http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse # yamllint disable-line rule:line-length
     state:        present
     filename:     backports
