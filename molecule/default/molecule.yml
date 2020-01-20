@@ -37,6 +37,16 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged:       true
+  - name:             molecule-centos8
+    hostname:         centos8
+    image:            pandemonium1986/centos8:latest
+    pull:             true
+    pre_build_image:  true
+    tty:              true
+    override_command: false
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged:       true
 provisioner:
   name:               ansible
   lint:

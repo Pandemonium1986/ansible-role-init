@@ -1,0 +1,22 @@
+---
+_packages:
+  - bind-utils
+  - ca-certificates
+  - curl
+  - dkms
+  - git
+  - gitk
+  - gnupg2
+  - htop
+  - kernel-devel
+  - man
+  - mlocate
+  - net-tools
+  - nmap
+  - python3-devel
+  - sudo
+  - tmux
+  - tree
+  - unzip
+  - vim
+  - zsh
