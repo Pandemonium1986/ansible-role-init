@@ -1,10 +1,10 @@
 ---
 - name:               Include OS-specific variables (Debian).
-  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
   when:               ansible_os_family == 'Debian'
 
 - name:               Include OS-specific variables (RedHat).
-  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml"
+  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
   when:               ansible_os_family == 'RedHat'
 
 - include_tasks:      setup-{{ ansible_distribution }}.yml
@@ -28,9 +28,9 @@
   user:
     name:             "{{ item.user_name }}"
     comment:          "{{ item.user_comment }}"
-    append:           yes
+    append:           true
     expires:          -1
-    generate_ssh_key: yes
+    generate_ssh_key: true
     # group:          "{{ item.user_name }}"
     groups:           "{{ item.user_groups | default (item.user_name) }}"
     home:             "{{ item.user_home }}"
@@ -58,5 +58,5 @@
     state:            present
     regexp:           '^#Banner none$'
     line:             'Banner /etc/banner.txt'
-    backrefs:         yes
+    backrefs:         true
   notify:             RESTART_SSHD
