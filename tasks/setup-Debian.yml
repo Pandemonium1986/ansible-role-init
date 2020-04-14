@@ -4,3 +4,7 @@
     repo:         deb http://ftp.debian.org/debian stretch-backports main
     state:        present
     filename:     backports
+
+- name:           Ensure apt cache is update
+  apt:
+    update_cache: yes

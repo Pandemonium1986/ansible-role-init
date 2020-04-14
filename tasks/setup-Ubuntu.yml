@@ -4,3 +4,8 @@
     repo:         deb http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse # yamllint disable-line rule:line-length
     state:        present
     filename:     backports
+
+- name:           Ensure apt cache is update
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
