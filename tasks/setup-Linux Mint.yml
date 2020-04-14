@@ -1,4 +1,4 @@
 ---
-- name:  Linux Mint setup empty task
-  debug:
-    msg: Nothing to do
+- name:           Ensure apt cache is update
+  apt:
+    update_cache: yes
