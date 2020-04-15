@@ -1,9 +1,10 @@
 # Ansible role : Init
 
-![](https://img.shields.io/github/release/Pandemonium1986/ansible-role-init.svg)
-![](https://img.shields.io/github/repo-size/Pandemonium1986/ansible-role-init.svg)
-![](https://img.shields.io/github/release-date/Pandemonium1986/ansible-role-init.svg)
-![](https://img.shields.io/github/license/Pandemonium1986/ansible-role-init.svg)
+![Ansible Role](https://img.shields.io/ansible/role/36274?logo=ansible)
+![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/Pandemonium1986/ansible-role-init?logo=gitlab)
+![GitHub release](https://img.shields.io/github/release/Pandemonium1986/ansible-role-init.svg?logo=github)
+![Github license](https://img.shields.io/github/license/Pandemonium1986/ansible-role-init.svg?logo=github)
+![Ansible Quality Score](https://img.shields.io/ansible/quality/36274?logo=ansible)
 
 Install and configure a lot of packages to initialize a linux environment.
 
