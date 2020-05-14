@@ -7,4 +7,4 @@
 
 - name:           Ensure apt cache is update
   apt:
-    update_cache: yes
+    update_cache: true
