@@ -17,7 +17,7 @@
       - "gpg2 --version"
       - "htop --version"
       - "man --version"
-      - "mlocate --version"
+      - "locate --version"
       - "nmap --version"
       - "sudo --version"
       - "tmux -V"

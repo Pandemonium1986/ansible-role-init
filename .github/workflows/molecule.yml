@@ -35,6 +35,8 @@ jobs:
           - "debian9"
           - "debian10"
           - "debian11"
+          - "mint19"
+          - "mint20"
           - "ubuntu1804"
           - "ubuntu2004"
     container:
