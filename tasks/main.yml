@@ -1,4 +1,9 @@
 ---
+- name: Configure Mint Fact
+  set_fact:
+    ansible_distribution: "Mint"
+  when: ansible_distribution == 'Linux Mint'
+
 - name:               Include OS-specific variables (Debian).
   include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
   when:               ansible_os_family == 'Debian'
