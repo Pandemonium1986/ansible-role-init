@@ -9,7 +9,7 @@
     register:      apps_res
     ignore_errors: true
     loop:
-      - "dig -version"
+      - "dig -v"
       - "nslookup -version"
       - "curl --version"
       - "dkms --version"
