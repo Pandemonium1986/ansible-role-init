@@ -9,16 +9,19 @@
     register:      apps_res
     ignore_errors: true
     loop:
-      - "dig -v"
-      - "nslookup -version"
+      - "clamscan --version"
       - "curl --version"
+      - "dig -v"
       - "dkms --version"
       - "git --version"
       - "gpg2 --version"
       - "htop --version"
-      - "man --version"
+      - "keepassxc-cli --version"
       - "locate --version"
+      - "man --version"
       - "nmap --version"
+      - "nslookup -version"
+      - "remmina -h"
       - "sudo --version"
       - "tmux -V"
       - "tree --version"

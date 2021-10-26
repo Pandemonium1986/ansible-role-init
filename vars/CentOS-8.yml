@@ -1,20 +1,30 @@
 ---
+_packages_ansible_bootstrap:
+  - python3
+  - python3-devel
+  # - python3-pip
+  # - python3-setuptools
+  # - python3-wheel
+  - sudo
+
 _packages:
   - bind-utils
   - ca-certificates
+  - clamav
   - curl
   - dkms
   - git
-  - gitk
   - gnupg2
   - htop
+  - keepassxc
   - kernel-devel
   - man
   - mlocate
   - net-tools
   - nmap
-  - python3-devel
-  - sudo
+  - remmina
+  - remmina-rdp
+  - remmina-vnc
   - tmux
   - tree
   - unzip

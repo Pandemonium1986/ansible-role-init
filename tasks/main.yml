@@ -18,6 +18,11 @@
 - include_tasks:      setup-{{ ansible_distribution }}.yml
   when:               ansible_os_family == 'RedHat'
 
+- name:               Install ansible bootstrap packages
+  package:
+    name:             "{{ _packages_ansible_bootstrap }}"
+    state:            present
+
 - name:               Install packages
   package:
     name:             "{{ _packages }}"
