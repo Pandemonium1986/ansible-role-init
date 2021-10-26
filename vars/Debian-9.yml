@@ -26,9 +26,6 @@ _packages:
   - net-tools
   - nmap
   - powerline
-  - remmina
-  - remmina-rdp
-  - remmina-vnc
   - software-properties-common
   - tmux
   - tree
