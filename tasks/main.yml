@@ -1,72 +1,82 @@
 ---
-- name: Configure Mint Fact
+- name:                   Configure Mint Fact
   set_fact:
     ansible_distribution: "Mint"
-  when: ansible_distribution == 'Linux Mint'
+  when:                   ansible_distribution == 'Linux Mint'
 
-- name:               Include OS-specific variables (Debian).
-  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
-  when:               ansible_os_family == 'Debian'
+- name:                   Include OS-specific variables (Debian).
+  include_vars:           "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
+  when:                   ansible_os_family == 'Debian'
 
-- name:               Include OS-specific variables (RedHat).
-  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
-  when:               ansible_os_family == 'RedHat'
+- name:                   Include OS-specific variables (RedHat).
+  include_vars:           "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
+  when:                   ansible_os_family == 'RedHat'
 
-- include_tasks:      setup-{{ ansible_distribution }}.yml
-  when:               ansible_os_family == 'Debian'
+- include_tasks:          setup-{{ ansible_distribution }}.yml
+  when:                   ansible_os_family == 'Debian'
 
-- include_tasks:      setup-{{ ansible_distribution }}.yml
-  when:               ansible_os_family == 'RedHat'
+- include_tasks:          setup-{{ ansible_distribution }}.yml
+  when:                   ansible_os_family == 'RedHat'
 
-- name:               Install ansible bootstrap packages
+- name:                   Install ansible bootstrap packages
   package:
-    name:             "{{ _packages_ansible_bootstrap }}"
-    state:            present
+    name:                 "{{ _packages_ansible_bootstrap }}"
+    state:                present
 
-- name:               Install packages
+- name:                   Install packages
   package:
-    name:             "{{ _packages }}"
-    state:            present
+    name:                 "{{ _packages }}"
+    state:                present
 
-- name:               Ensure group "user_name" exists
+- name:                   Install packages backports
+  apt:
+    name:                 "{{ _packages_backports }}"
+    state:                present
+    default_release:      "{{ ansible_distribution }}-backports"
+  when:
+    - ansible_facts['distribution'] == "Debian"
+    - _packages_backports is defined
+    - _packages_backports | length == 0
+
+- name:                   Ensure group "user_name" exists
   group:
-    name:             "{{ item.user_name }}"
-    state:            present
-  loop:               "{{ init_users|flatten(levels=1) }}"
+    name:                 "{{ item.user_name }}"
+    state:                present
+  loop:                   "{{ init_users|flatten(levels=1) }}"
 
-- name:               Create default users
+- name:                   Create default users
   user:
-    name:             "{{ item.user_name }}"
-    comment:          "{{ item.user_comment }}"
-    append:           true
-    expires:          -1
-    generate_ssh_key: true
-    # group:          "{{ item.user_name }}"
-    groups:           "{{ item.user_groups | default (item.user_name) }}"
-    home:             "{{ item.user_home }}"
-    password:         "{{ item.user_password }}"
-    shell:            /bin/zsh
-    ssh_key_bits:     4096
-    ssh_key_comment:  fake_key
-    ssh_key_file:     .ssh/id_rsa
-    ssh_key_type:     rsa
-    state:            present
-    update_password:  on_create
-  loop:               "{{ init_users|flatten(levels=1) }}"
+    name:                 "{{ item.user_name }}"
+    comment:              "{{ item.user_comment }}"
+    append:               true
+    expires:              -1
+    generate_ssh_key:     true
+    # group:              "{{ item.user_name }}"
+    groups:               "{{ item.user_groups | default (item.user_name) }}"
+    home:                 "{{ item.user_home }}"
+    password:             "{{ item.user_password }}"
+    shell:                /bin/zsh
+    ssh_key_bits:         4096
+    ssh_key_comment:      fake_key
+    ssh_key_file:         .ssh/id_rsa
+    ssh_key_type:         rsa
+    state:                present
+    update_password:      on_create
+  loop:                   "{{ init_users|flatten(levels=1) }}"
 
-- name:               Copy ssh banner
+- name:                   Copy ssh banner
   copy:
-    src:              banner.txt
-    dest:             /etc/banner.txt
-    owner:            root
-    group:            root
-    mode:             0640
+    src:                  banner.txt
+    dest:                 /etc/banner.txt
+    owner:                root
+    group:                root
+    mode:                 0640
 
-- name:               Ensure Banner is enabled
+- name:                   Ensure Banner is enabled
   lineinfile:
-    path:             /etc/ssh/sshd_config
-    state:            present
-    regexp:           '^#Banner none$'
-    line:             'Banner /etc/banner.txt'
-    backrefs:         true
-  notify:             RESTART_SSHD
+    path:                 /etc/ssh/sshd_config
+    state:                present
+    regexp:               '^#Banner none$'
+    line:                 'Banner /etc/banner.txt'
+    backrefs:             true
+  notify:                 RESTART_SSHD
