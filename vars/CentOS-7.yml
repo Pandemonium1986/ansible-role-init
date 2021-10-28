@@ -21,6 +21,9 @@ _packages:
   - mlocate
   - net-tools
   - nmap
+  - remmina
+  - remmina-plugins-rdp
+  - remmina-plugins-vnc
   - tmux
   - tree
   - unzip

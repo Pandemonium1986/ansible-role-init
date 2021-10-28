@@ -13,6 +13,7 @@ _packages:
   - clamav
   - curl
   - dkms
+  - dnf-plugins-core
   - git
   - gnupg2
   - htop
@@ -22,6 +23,9 @@ _packages:
   - mlocate
   - net-tools
   - nmap
+  - remmina
+  - remmina-plugins-rdp
+  - remmina-plugins-vnc
   - tmux
   - tree
   - unzip

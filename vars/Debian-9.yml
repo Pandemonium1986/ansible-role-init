@@ -26,7 +26,10 @@ _packages:
   - net-tools
   - nmap
   - powerline
-  - software-properties-common
+  - remmina
+  - remmina-plugins-rdp/stretch-backports
+  - remmina-plugins-vnc/stretch-backports
+  - software-properties-common/stretch-backports
   - tmux
   - tree
   - unzip

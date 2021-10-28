@@ -9,9 +9,9 @@ lint:                 |
   yamllint .
   ansible-lint
 platforms:
-  - name:                    molecule-${DKR_IMAGE:-debian10}
-    hostname:                ${DKR_IMAGE:-debian10}
-    image:                   ghcr.io/pandemonium1986/${DKR_IMAGE:-debian10}:nightly
+  - name:                    molecule-${DKR_IMAGE:-debian9}
+    hostname:                ${DKR_IMAGE:-debian9}
+    image:                   ghcr.io/pandemonium1986/${DKR_IMAGE:-debian9}:nightly
     pull:                    true
     pre_build_image:         true
     tty:                     true
