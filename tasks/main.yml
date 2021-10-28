@@ -32,11 +32,11 @@
   apt:
     name:                 "{{ _packages_backports }}"
     state:                present
-    default_release:      "{{ ansible_distribution }}-backports"
+    default_release:      "{{ ansible_distribution_release }}-backports"
   when:
-    - ansible_facts['distribution'] == "Debian"
+    - ansible_os_family == "Debian"
     - _packages_backports is defined
-    - _packages_backports | length == 0
+    - _packages_backports | length > 0
 
 - name:                   Ensure group "user_name" exists
   group:

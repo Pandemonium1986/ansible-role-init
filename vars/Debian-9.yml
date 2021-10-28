@@ -35,5 +35,5 @@ _packages:
 
 _packages_backports:
   - remmina
-  - remmina-plugins-rdp
-  - remmina-plugins-vnc
+  - remmina-plugin-rdp
+  - remmina-plugin-vnc

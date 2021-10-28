@@ -16,7 +16,7 @@
       - "git --version"
       - "gpg2 --version"
       - "htop --version"
-      - "keepassxc-cli --version"
+      # - "keepassxc-cli --version"
       - "locate --version"
       - "man --version"
       - "nmap --version"
