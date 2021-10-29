@@ -1,7 +1,9 @@
 ---
 _packages_os:
-    - remmina
-    - remmina-plugin-rdp
-    - remmina-plugin-vnc
+  - chromium
+  - firefox-esr
+  - remmina
+  - remmina-plugin-rdp
+  - remmina-plugin-vnc
 
 _packages_backports: []

@@ -9,10 +9,13 @@
     register:      apps_res
     ignore_errors: true
     loop:
+      # - "audacity --version"
+      - "chromium --version"
       - "clamscan --version"
       - "curl --version"
       - "dig -v"
       - "dkms --version"
+      - "firefox --version"
       - "git --version"
       - "gpg2 --version"
       - "htop --version"

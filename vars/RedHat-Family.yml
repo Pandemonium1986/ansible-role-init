@@ -8,11 +8,15 @@ _packages_ansible_bootstrap:
   - sudo
 
 _packages:
+  - audacity
   - bind-utils
   - ca-certificates
+  - chromium
   - clamav
   - curl
   - dkms
+  - firefox
+  - gimp
   - git
   - gnupg2
   - htop

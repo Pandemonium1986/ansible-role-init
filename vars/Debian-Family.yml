@@ -17,6 +17,7 @@ _packages:
   - dkms
   - dnsutils
   - fonts-powerline
+  - gimp
   - git
   - gnupg2
   - htop

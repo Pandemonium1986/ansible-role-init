@@ -1,5 +1,7 @@
 ---
-_packages_os: []
+_packages_os:
+  - chromium
+  - firefox-esr
 
 _packages_backports:
   - remmina
