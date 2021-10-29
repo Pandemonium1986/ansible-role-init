@@ -1,62 +1,83 @@
 ---
-- name:               Include OS-specific variables (Debian).
-  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
-  when:               ansible_os_family == 'Debian'
+- name:                          Configure Mint Fact
+  ansible.builtin.set_fact:
+    ansible_distribution:        "Mint"
+  when:                          ansible_distribution == 'Linux Mint'
 
-- name:               Include OS-specific variables (RedHat).
-  include_vars:       "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
-  when:               ansible_os_family == 'RedHat'
+- name:                          Include Family specific variables
+  ansible.builtin.include_vars:  "{{ ansible_os_family }}-Family.yml"
 
-- include_tasks:      setup-{{ ansible_distribution }}.yml
-  when:               ansible_os_family == 'Debian'
+- name:                          Include OS-specific variables
+  ansible.builtin.include_vars:  "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
 
-- include_tasks:      setup-{{ ansible_distribution }}.yml
-  when:               ansible_os_family == 'RedHat'
+- name:                          Include OS-specific tasks
+  ansible.builtin.include_tasks: setup-{{ ansible_distribution }}.yml
 
-- name:               Install packages
-  package:
-    name:             "{{ _packages }}"
-    state:            present
+- name:                          Install ansible bootstrap packages
+  ansible.builtin.package:
+    name:                        "{{ _packages_ansible_bootstrap }}"
+    state:                       present
 
-- name:               Ensure group "user_name" exists
-  group:
-    name:             "{{ item.user_name }}"
-    state:            present
-  loop:               "{{ init_users|flatten(levels=1) }}"
+- name:                          Generate package list
+  ansible.builtin.set_fact:
+    _packages:                   "{{ _packages + _packages_os  }} "
+  when:
+    - (_packages_os is defined) or (_packages_os | length > 0)
 
-- name:               Create default users
-  user:
-    name:             "{{ item.user_name }}"
-    comment:          "{{ item.user_comment }}"
-    append:           true
-    expires:          -1
-    generate_ssh_key: true
-    # group:          "{{ item.user_name }}"
-    groups:           "{{ item.user_groups | default (item.user_name) }}"
-    home:             "{{ item.user_home }}"
-    password:         "{{ item.user_password }}"
-    shell:            /bin/zsh
-    ssh_key_bits:     4096
-    ssh_key_comment:  fake_key
-    ssh_key_file:     .ssh/id_rsa
-    ssh_key_type:     rsa
-    state:            present
-    update_password:  on_create
-  loop:               "{{ init_users|flatten(levels=1) }}"
+- name:                          Install packages
+  ansible.builtin.package:
+    name:                        "{{ _packages }}"
+    state:                       present
 
-- name:               Copy ssh banner
-  copy:
-    src:              banner.txt
-    dest:             /etc/banner.txt
-    owner:            root
-    group:            root
-    mode:             0640
+- name:                          Install packages backports
+  ansible.builtin.apt:
+    name:                        "{{ _packages_backports }}"
+    state:                       present
+    default_release:             "{{ ansible_distribution_release }}-backports"
+  when:
+    - ansible_os_family == "Debian"
+    - _packages_backports is defined
+    - _packages_backports | length > 0
 
-- name:               Ensure Banner is enabled
-  lineinfile:
-    path:             /etc/ssh/sshd_config
-    state:            present
-    regexp:           '^#Banner none$'
-    line:             'Banner /etc/banner.txt'
-    backrefs:         true
-  notify:             RESTART_SSHD
+- name:                          Ensure group "user_name" exists
+  ansible.builtin.group:
+    name:                        "{{ item.user_name }}"
+    state:                       present
+  loop:                          "{{ init_users|flatten(levels=1) }}"
+
+- name:                          Create default users
+  ansible.builtin.user:
+    name:                        "{{ item.user_name }}"
+    comment:                     "{{ item.user_comment }}"
+    append:                      true
+    expires:                     -1
+    generate_ssh_key:            true
+    # group:                     "{{ item.user_name }}"
+    groups:                      "{{ item.user_groups | default (item.user_name) }}"
+    home:                        "{{ item.user_home }}"
+    password:                    "{{ item.user_password }}"
+    shell:                       /bin/zsh
+    ssh_key_bits:                4096
+    ssh_key_comment:             fake_key
+    ssh_key_file:                .ssh/id_rsa
+    ssh_key_type:                rsa
+    state:                       present
+    update_password:             on_create
+  loop:                          "{{ init_users|flatten(levels=1) }}"
+
+- name:                          Copy ssh banner
+  ansible.builtin.copy:
+    src:                         banner.txt
+    dest:                        /etc/banner.txt
+    owner:                       root
+    group:                       root
+    mode:                        0640
+
+- name:                          Ensure Banner is enabled
+  ansible.builtin.lineinfile:
+    path:                        /etc/ssh/sshd_config
+    state:                       present
+    regexp:                      '^#Banner none$'
+    line:                        'Banner /etc/banner.txt'
+    backrefs:                    true
+  notify:                        RESTART_SSHD

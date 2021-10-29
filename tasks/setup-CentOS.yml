@@ -1,11 +1,19 @@
 ---
-- name:         Ensure EPEL repository is enabled
-  yum:
-    name:       epel-release
-    state:      present
-    enablerepo: extras
+- name:                    Ensure EPEL repository is enabled
+  ansible.builtin.yum:
+    name:                  epel-release
+    state:                 present
 
-- name:         Install the 'Development tools' package group
-  yum:
-    name:       "@Development tools"
-    state:      present
+- name:                    Install the 'Development tools' package group
+  ansible.builtin.yum:
+    name:                  "@Development tools"
+    state:                 present
+
+- name:                    Enable copr repo for remmina
+  ansible.builtin.command:
+    cmd:                   dnf --assumeyes copr enable castor/remmina
+    creates:               /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:castor:remmina.repo
+    warn:                  false
+  when:
+    - ansible_facts['distribution'] == "CentOS"
+    - ansible_facts['distribution_major_version'] == "8"
