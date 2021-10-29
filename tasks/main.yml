@@ -4,19 +4,10 @@
     ansible_distribution: "Mint"
   when:                   ansible_distribution == 'Linux Mint'
 
-- name:                   Include OS-specific variables (Debian).
+- name:                   Include OS-specific variables
   include_vars:           "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
-  when:                   ansible_os_family == 'Debian'
-
-- name:                   Include OS-specific variables (RedHat).
-  include_vars:           "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
-  when:                   ansible_os_family == 'RedHat'
 
 - include_tasks:          setup-{{ ansible_distribution }}.yml
-  when:                   ansible_os_family == 'Debian'
-
-- include_tasks:          setup-{{ ansible_distribution }}.yml
-  when:                   ansible_os_family == 'RedHat'
 
 - name:                   Install ansible bootstrap packages
   package:
