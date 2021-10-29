@@ -7,7 +7,8 @@
 - name:                   Include OS-specific variables
   include_vars:           "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
 
-- include_tasks:          setup-{{ ansible_distribution }}.yml
+- name:                   Include OS-specific tasks
+  include_tasks:          setup-{{ ansible_distribution }}.yml
 
 - name:                   Install ansible bootstrap packages
   package:
