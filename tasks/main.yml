@@ -4,6 +4,9 @@
     ansible_distribution: "Mint"
   when:                   ansible_distribution == 'Linux Mint'
 
+- name:                   Include Distribution specific variables
+  include_vars:           "{{ ansible_distribution }}-Like.yml"
+
 - name:                   Include OS-specific variables
   include_vars:           "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
 
@@ -14,6 +17,12 @@
   package:
     name:                 "{{ _packages_ansible_bootstrap }}"
     state:                present
+
+- name:                   Generate package list
+  set_fact:
+    _packages:            "{{ _packages + _packages_os  }} "
+  when:
+    - (_packages_os is defined) or (_packages_os | length > 0)
 
 - name:                   Install packages
   package:
