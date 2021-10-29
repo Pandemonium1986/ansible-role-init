@@ -1,7 +1,7 @@
 # Ansible role : Init
 
 ![Ansible Role](https://img.shields.io/ansible/role/36274?logo=ansible)
-![Github pipeline status](https://github.com/Pandemonium1986/ansible-role-init/workflows/Molecule:%20Github%20actions%20pipeline/badge.svg)
+[![Molecule](https://github.com/Pandemonium1986/ansible-role-init/actions/workflows/molecule.yml/badge.svg)](https://github.com/Pandemonium1986/ansible-role-init/actions/workflows/molecule.yml)
 ![GitHub release](https://img.shields.io/github/release/Pandemonium1986/ansible-role-init.svg?logo=github)
 ![Github license](https://img.shields.io/github/license/Pandemonium1986/ansible-role-init.svg?logo=github)
 ![Ansible Quality Score](https://img.shields.io/ansible/quality/36274?logo=ansible)
@@ -27,34 +27,49 @@ init_users:
 From vars/main.yml (depends of distribution):
 
 ```yaml
+---
+_packages_ansible_bootstrap:
+  - python3
+  - python3-dev
+  - sudo
+
 _packages:
   - apt-transport-https
+  - audacity
   - build-essential
   - ca-certificates
-  - cowsay
+  - clamav
   - curl
   - dkms
   - dnsutils
   - fonts-powerline
+  - gimp
   - git
-  - gitk
   - gnupg2
   - htop
-  - libfortune-perl
+  - keepassxc
   - man
   - mlocate
   - module-assistant
   - net-tools
   - nmap
   - powerline
-  - python-dev
   - software-properties-common
-  - sudo
   - tmux
   - tree
   - unzip
   - vim
   - zsh
+
+_packages_os:
+  - chromium
+  - firefox-esr
+
+_packages_backports:
+  - remmina
+  - remmina-plugin-rdp
+  - remmina-plugin-vnc
+
 ```
 
 ## Dependencies
