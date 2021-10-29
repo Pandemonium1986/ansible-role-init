@@ -10,7 +10,7 @@
     ignore_errors: true
     loop:
       # - "audacity --version"
-      - "chromium --version"
+      # - "chromium --version"
       - "clamscan --version"
       - "curl --version"
       - "dig -v"
