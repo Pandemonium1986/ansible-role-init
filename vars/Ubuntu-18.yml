@@ -1,3 +1,7 @@
 ---
-_packages_os:        []
+_packages_os:
+    - remmina
+    - remmina-plugin-rdp
+    - remmina-plugin-vnc
+
 _packages_backports: []

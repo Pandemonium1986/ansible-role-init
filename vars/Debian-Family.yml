@@ -9,6 +9,7 @@ _packages_ansible_bootstrap:
 
 _packages:
   - apt-transport-https
+  - audacity
   - build-essential
   - ca-certificates
   - clamav
@@ -32,8 +33,3 @@ _packages:
   - unzip
   - vim
   - zsh
-
-_packages_backports:
-  - remmina
-  - remmina-plugin-rdp
-  - remmina-plugin-vnc
