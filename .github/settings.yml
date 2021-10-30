@@ -5,7 +5,7 @@ repository:
   # homepage:                            https://example.github.io/
   topics:                                "automation, Init, ansible-role"
   private:                               false
-  has_issues:                            false
+  has_issues:                            true
   has_projects:                          false
   has_wiki:                              false
   has_downloads:                         true
