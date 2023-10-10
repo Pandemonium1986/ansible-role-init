@@ -15,7 +15,7 @@ on:
 jobs:
   lint:
     name: "Ansible: Lint"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: "Init: Run checkout@v2"
         uses: actions/checkout@v4
