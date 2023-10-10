@@ -1,41 +1,41 @@
 ---
-- name:            Verify
-  hosts:           all
-  gather_facts:    true
+- name: Verify
+  hosts: all
+  gather_facts: true
   tasks:
-  - name:          Run of each application # noqa 301
-    command:
-      cmd:         "{{ item }}"
-    register:      apps_res
-    ignore_errors: true
-    loop:
-      # - "audacity --version"
-      # - "chromium --version"
-      - "clamscan --version"
-      - "curl --version"
-      - "dig -v"
-      - "dkms --version"
-      - "firefox --version"
-      - "git --version"
-      - "gpg2 --version"
-      - "htop --version"
-      # - "keepassxc-cli --version"
-      - "locate --version"
-      - "man --version"
-      - "nmap --version"
-      - "nslookup -version"
-      - "remmina -h"
-      - "sudo --version"
-      - "tmux -V"
-      - "tree --version"
-      - "unzip -h"
-      - "vim --version"
-      - "zsh --version"
-  - name:          Ensure app is installed and running
-    assert:
-      that:
-        - item.rc == 0
-      quiet:       true
-      fail_msg:    "{{ item.cmd }} does not seem to be available"
-      success_msg: "{{ item.cmd }} is available"
-    loop:          "{{ apps_res.results }}"
+    - name: Run of each application # noqa: no-changed-when
+      ansible.builtin.command:
+        cmd: "{{ item }}"
+      register: apps_res
+      ignore_errors: true
+      loop:
+        # - "audacity --version"
+        # - "chromium --version"
+        - "clamscan --version"
+        - "curl --version"
+        - "dig -v"
+        - "dkms --version"
+        - "firefox --version"
+        - "git --version"
+        - "gpg2 --version"
+        - "htop --version"
+        # - "keepassxc-cli --version"
+        - "locate --version"
+        - "man --version"
+        - "nmap --version"
+        - "nslookup -version"
+        - "remmina -h"
+        - "sudo --version"
+        - "tmux -V"
+        - "tree --version"
+        - "unzip -h"
+        - "vim --version"
+        - "zsh --version"
+    - name: Ensure app is installed and running
+      ansible.builtin.assert:
+        that:
+          - item.rc == 0
+        quiet: true
+        fail_msg: "{{ item.cmd }} does not seem to be available"
+        success_msg: "{{ item.cmd }} is available"
+      loop: "{{ apps_res.results }}"
