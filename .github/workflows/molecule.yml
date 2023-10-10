@@ -25,7 +25,7 @@ jobs:
           args: "--exclude .github .pre-commit-config.yaml"
   molecule:
     name: "Molecule: Test"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
