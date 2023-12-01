@@ -1,0 +1,10 @@
+---
+- name: Ensure EPEL repository is enabled
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+
+- name: Install the 'Development tools' package group
+  ansible.builtin.yum:
+    name: "@Development tools"
+    state: present

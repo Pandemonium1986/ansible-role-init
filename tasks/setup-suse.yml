@@ -1,0 +1,23 @@
+---
+- name: Refresh repositories and update package vim
+  community.general.zypper:
+    name: vim
+    state: present
+    update_cache: true
+
+- name: Ensure devel_basis is installed
+  community.general.zypper:
+    name: devel_basis
+    state: present
+    type: pattern
+
+- name: Copy the "sshd_config" file on the remote machine for editing
+  ansible.builtin.copy:
+    src: /usr/etc/ssh/sshd_config
+    dest: /etc/ssh/sshd_config
+    mode: 0640
+    owner: root
+    group: root
+    remote_src: true
+    force: false
+  when: _init_distribution_version == "tumbleweed"

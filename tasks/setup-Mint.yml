@@ -1,5 +1,0 @@
----
-- name: Ensure apt cache is update
-  ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 0

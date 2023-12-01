@@ -1,0 +1,35 @@
+---
+- name: Ensure backports are enabled
+  ansible.builtin.apt_repository:
+    repo: "deb http://fr.archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-backports main restricted universe multiverse" # noqa: yaml[line-length]
+    state: present
+    filename: backports
+
+- name: Ensure apt cache is update
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install dependencies and configure apt to install firefox with deb instead of snap
+  block:
+    - name: Ensure dependency packages are installed
+      ansible.builtin.apt:
+        name: ["gnupg2", "software-properties-common"]
+        state: present
+
+    - name: Add mozillateam repository into sources list
+      ansible.builtin.apt_repository:
+        repo: ppa:mozillateam/ppa
+        state: present
+
+    - name: Ensure firefox is grab from mozillateam instead of Unbuntu repo
+      ansible.builtin.blockinfile:
+        path: /etc/apt/preferences.d/mozilla-firefox
+        block: |
+          Package: *
+          Pin: release o=LP-PPA-mozillateam
+          Pin-Priority: 1001
+        create: true
+        owner: root
+        group: root
+        mode: 0644
