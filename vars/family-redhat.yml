@@ -2,9 +2,6 @@
 _packages_ansible_bootstrap:
   - python3
   - python3-devel
-  # - python3-pip
-  # - python3-setuptools
-  # - python3-wheel
   - sudo
 
 _packages:

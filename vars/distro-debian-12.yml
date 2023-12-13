@@ -4,6 +4,5 @@ _packages_os:
   - firefox-esr
 
 _packages_backports:
-  - remmina
-  - remmina-plugin-rdp
-  - remmina-plugin-vnc
+  - curl
+  - nmap

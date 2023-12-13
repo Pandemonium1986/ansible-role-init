@@ -3,13 +3,16 @@
   hosts: all
   gather_facts: true
   tasks:
+    ##################
+    ## Applications ##
+    ##################
     - name: Run of each application # noqa: no-changed-when
       ansible.builtin.command:
         cmd: "{{ item }}"
       register: apps_res
       ignore_errors: true
       loop:
-        # - "audacity --version"
+        - "which audacity"
         # - "chromium --version"
         - "clamscan --version"
         - "curl --version"
@@ -19,7 +22,6 @@
         - "git --version"
         - "gpg2 --version"
         - "htop --version"
-        # - "keepassxc-cli --version"
         - "locate --version"
         - "man --version"
         - "nmap --version"
@@ -39,3 +41,59 @@
         fail_msg: "{{ item.cmd }} does not seem to be available"
         success_msg: "{{ item.cmd }} is available"
       loop: "{{ apps_res.results }}"
+
+    ######################
+    ## Users and Groups ##
+    ######################
+    - name: Test users and groups # noqa: no-changed-when
+      ansible.builtin.command:
+        cmd: "{{ item }}"
+      register: users_groups_res
+      ignore_errors: true
+      loop:
+        - "id utest001"
+        - "id utest002"
+        - "getent group gtest001"
+        - "getent group gtest002"
+    - name: Ensure users and groups are created
+      ansible.builtin.assert:
+        that:
+          - item.rc == 0
+        quiet: true
+        fail_msg: "{{ item.cmd }} does not seem to be available"
+        success_msg: "{{ item.cmd }} is available"
+      loop: "{{ users_groups_res.results }}"
+
+    ##############
+    ## Specfics ##
+    ##############
+    - name: Specfic test 001 for utest001 uid # noqa: no-changed-when
+      ansible.builtin.shell:
+        cmd: "cat /etc/passwd | grep utest001 | awk -F ':' '{print $3}'"
+      register: st001_utest001_uid
+      ignore_errors: true
+    - name: Specfic test 002 for utest001 shell # noqa: no-changed-when
+      ansible.builtin.shell:
+        cmd: "cat /etc/passwd | grep utest001 | awk -F ':' '{print $7}'"
+      register: st002_utest001_shell
+      ignore_errors: true
+    - name: Specfic test 003 for utest002 shell # noqa: no-changed-when
+      ansible.builtin.shell:
+        cmd: "cat /etc/passwd | grep utest002 | awk -F ':' '{print $7}'"
+      register: st003_utest002_shell
+      ignore_errors: true
+    - name: Specfic test 004 for gtest001 gid # noqa: no-changed-when
+      ansible.builtin.shell:
+        cmd: "getent group gtest001 | awk -F ':' '{print $3}'"
+      register: st004_gtest001_gid
+      ignore_errors: true
+    - name: Ensure that specific tests are correct
+      ansible.builtin.assert:
+        that:
+          - st001_utest001_uid.stdout == "6666"
+          - st002_utest001_shell.stdout == "/bin/zsh"
+          - st003_utest002_shell.stdout == "/bin/bash"
+          - st004_gtest001_gid.stdout == "65432"
+        quiet: true
+        fail_msg: "One of the tests has failed, please check the 'verify' run."
+        success_msg: "All tests passed"

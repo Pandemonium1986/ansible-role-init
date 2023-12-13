@@ -1,6 +1,24 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    init_groups:
+      - group_name: gtest001
+        group_gid: 65432
+      - group_name: gtest002
+    init_users:
+      - user_name: utest001
+        user_comment: "User Test 001"
+        user_groups: ["utest001", "gtest001", "gtest002"]
+        user_home: /home/utest001
+        user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.
+        user_shell: "/bin/zsh"
+        user_uid: "6666"
+      - user_name: utest002
+        user_comment: "User Test 002"
+        user_groups: ["utest002", "gtest002"]
+        user_home: /home/utest002
+        user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.
   tasks:
     - name: "Include ansible-role-init"
       ansible.builtin.include_role:

@@ -1,24 +1,22 @@
 ---
-- name: Configure Mint Fact
-  ansible.builtin.set_fact:
-    ansible_distribution: "Mint"
-  when: ansible_distribution == 'Linux Mint'
+- name: Include fact generation
+  ansible.builtin.import_tasks: fact.yml
 
-- name: Include Family specific variables
-  ansible.builtin.include_vars: "{{ ansible_os_family }}-Family.yml"
+- name: Include family specific variables
+  ansible.builtin.include_vars: "family-{{ _init_os_family }}.yml"
 
-- name: Include OS-specific variables
-  ansible.builtin.include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_version.split('.')[0] }}.yml" # yamllint disable-line rule:line-length
+- name: Include distro variables
+  ansible.builtin.include_vars: "distro-{{ _init_distribution }}-{{ _init_distribution_version }}.yml" # yamllint disable-line rule:line-length
 
-- name: Include OS-specific tasks
-  ansible.builtin.include_tasks: setup-{{ ansible_distribution }}.yml
+- name: Include distro tasks
+  ansible.builtin.include_tasks: setup-{{ _init_distribution }}.yml
 
 - name: Install ansible bootstrap packages
   ansible.builtin.package:
     name: "{{ _packages_ansible_bootstrap }}"
     state: present
 
-- name: Generate package list
+- name: Generate packages list
   ansible.builtin.set_fact:
     _packages: "{{ _packages + _packages_os }}"
   when:
@@ -39,6 +37,13 @@
     - _packages_backports is defined
     - _packages_backports | length > 0
 
+- name: Ensure group "init_groups" exists
+  ansible.builtin.group:
+    name: "{{ item.group_name }}"
+    gid: "{{ item.group_gid | default(omit) }}"
+    state: present
+  loop: "{{ init_groups }}"
+
 - name: Ensure group "user_name" exists
   ansible.builtin.group:
     name: "{{ item.user_name }}"
@@ -48,20 +53,20 @@
 - name: Create default users
   ansible.builtin.user:
     name: "{{ item.user_name }}"
-    comment: "{{ item.user_comment }}"
     append: true
+    comment: "{{ item.user_comment }}"
     expires: -1
     generate_ssh_key: true
-    # group:                     "{{ item.user_name }}"
     groups: "{{ item.user_groups | default(item.user_name) }}"
     home: "{{ item.user_home }}"
     password: "{{ item.user_password }}"
-    shell: /bin/zsh
+    shell: "{{ item.user_shell | default('/bin/bash') }}"
     ssh_key_bits: 4096
     ssh_key_comment: fake_key
     ssh_key_file: .ssh/id_rsa
     ssh_key_type: rsa
     state: present
+    uid: "{{ item.user_uid | default(omit) }}"
     update_password: on_create
   loop: "{{ init_users | flatten(levels=1) }}"
 
@@ -73,7 +78,7 @@
     group: root
     mode: 0640
 
-- name: Ensure Banner is enabled
+- name: Ensure banner is enabled
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     state: present

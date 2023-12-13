@@ -1,30 +1,36 @@
 # Ansible role : Init
 
-![Ansible Role](https://img.shields.io/ansible/role/36274?logo=ansible)
+[![Ansible Role](https://img.shields.io/ansible/role/d/pandemonium1986/init?logo=Ansible&color=blue)](https://galaxy.ansible.com/ui/standalone/roles/pandemonium1986/init/)
 [![Molecule](https://github.com/Pandemonium1986/ansible-role-init/actions/workflows/molecule.yml/badge.svg)](https://github.com/Pandemonium1986/ansible-role-init/actions/workflows/molecule.yml)
 ![GitHub release](https://img.shields.io/github/release/Pandemonium1986/ansible-role-init.svg?logo=github)
 ![Github license](https://img.shields.io/github/license/Pandemonium1986/ansible-role-init.svg?logo=github)
-![Ansible Quality Score](https://img.shields.io/ansible/quality/36274?logo=ansible)
 
-Install and configure a lot of packages to initialize a linux environment.
+Install and configure a lot of packages to initialize a linux environment. Create groups and users.
 
 ## Requirements
 
-This role is self contained. He installs packages for debian, ubuntu, linux mint, centos if needed.
+This role is self contained. He installs packages for debian, ubuntu, opensuse, sles, centos if needed.
 
 ## Role Variables
 
 From defaults/main.yml :
 
 ```yaml
+init_groups:
+  - group_name: pandama                      # Mandatory
+    group_gid: 19860                         # Optionnal
+
 init_users:
-  - user_name: pandemonium
-    user_group: ['cdrom', 'floppy', 'audio', 'dip', 'video', 'plugdev', 'netdev']
-    user_home: /home/pandemonium
-    user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.  
+  - user_name: pandemonium                   # Mandatory
+    user_comment: Pandemonium1986            # Mandatory
+    user_groups: ["pandemonium", "pandama"]  # Optionnal
+    user_home: /home/pandemonium             # Mandatory
+    user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g. # Mandatory
+    user_shell: "/bin/zsh"                   # Optionnal
+    user_uid: "1000"                         # Optionnal
 ```
 
-From vars/main.yml (depends of distribution):
+From vars/[distro|familly]-[os_familly]-[os_version].yml (depends of distribution):
 
 ```yaml
 ---
@@ -47,13 +53,15 @@ _packages:
   - git
   - gnupg2
   - htop
-  - keepassxc
   - man
   - mlocate
   - module-assistant
   - net-tools
   - nmap
   - powerline
+  - remmina
+  - remmina-plugin-rdp
+  - remmina-plugin-vnc
   - software-properties-common
   - tmux
   - tree
@@ -66,9 +74,8 @@ _packages_os:
   - firefox-esr
 
 _packages_backports:
-  - remmina
-  - remmina-plugin-rdp
-  - remmina-plugin-vnc
+  - curl
+  - nmap
 
 ```
 
@@ -80,15 +87,14 @@ None.
 
 ```yaml
 ---
-- name :         Init play
-  hosts :        pandama
-  become:        true
+- name: Init play
+  hosts: pandama
+  become: true
   become_method: sudo
-  become_user:   root
+  become_user: root
   tasks:
     - import_role:
-        name:    pandemonium1986.init
-
+        name: pandemonium1986.init
 ```
 
 ## License
