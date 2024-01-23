@@ -1,5 +1,5 @@
 ---
-- name: Include fact generation
+- name: Include fact-global
   ansible.builtin.import_tasks: fact-global.yml
 
 - name: Include family specific variables
@@ -10,6 +10,9 @@
 
 - name: Include distro tasks
   ansible.builtin.include_tasks: setup-{{ _global_distribution }}.yml
+
+- name: Include fact-role
+  ansible.builtin.import_tasks: fact-role.yml
 
 - name: Install ansible bootstrap packages
   ansible.builtin.package:
