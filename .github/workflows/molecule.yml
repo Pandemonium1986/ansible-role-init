@@ -1,5 +1,5 @@
 ---
-name: "Molecule"
+name: "Molecule Workflow"
 on:
   schedule:
     - cron: "0 21 * * *"
