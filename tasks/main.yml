@@ -1,26 +1,20 @@
 ---
 - name: Include fact generation
-  ansible.builtin.import_tasks: fact.yml
+  ansible.builtin.import_tasks: fact-global.yml
 
 - name: Include family specific variables
-  ansible.builtin.include_vars: "family-{{ _init_os_family }}.yml"
+  ansible.builtin.include_vars: "family-{{ _global_os_family }}.yml"
 
 - name: Include distro variables
-  ansible.builtin.include_vars: "distro-{{ _init_distribution }}-{{ _init_distribution_version }}.yml" # yamllint disable-line rule:line-length
+  ansible.builtin.include_vars: "distro-{{ _global_distribution }}-{{ _global_distribution_version }}.yml" # yamllint disable-line rule:line-length
 
 - name: Include distro tasks
-  ansible.builtin.include_tasks: setup-{{ _init_distribution }}.yml
+  ansible.builtin.include_tasks: setup-{{ _global_distribution }}.yml
 
 - name: Install ansible bootstrap packages
   ansible.builtin.package:
     name: "{{ _packages_ansible_bootstrap }}"
     state: present
-
-- name: Generate packages list
-  ansible.builtin.set_fact:
-    _packages: "{{ _packages + _packages_os }}"
-  when:
-    - (_packages_os is defined) or (_packages_os | length > 0)
 
 - name: Install packages
   ansible.builtin.package:
