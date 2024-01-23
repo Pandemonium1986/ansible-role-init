@@ -1,0 +1,62 @@
+---
+argument_specs:
+  main:
+    short_description: Main entry point for the init role
+    description:
+      - This is the main entrypoint for the init role.
+      - There are only two dictionary lists available for this role init_users and init_groups
+      - Which can be used to create a list of users and groups.
+    version_added: 4.0.0
+    author:
+      - Michael Maffait
+    options:
+      init_groups:
+        description: "A list of groups with their name and gid."
+        type: "list"
+        required: true
+        elements: "dict"
+        options:
+          group_name:
+            description: "The desired group name."
+            type: "str"
+            required: true
+          group_gid:
+            description: "The desired group gid."
+            type: "int"
+            required: false
+      init_users:
+        description: "A list of users with their name, comment, groups, home, password, shell, uid."
+        type: "list"
+        required: true
+        elements: "dict"
+        options:
+          user_name:
+            description: "The desired user name"
+            type: "str"
+            required: true
+          user_comment:
+            description: "User description."
+            type: "str"
+            required: true
+          user_groups:
+            description: "User groups. If empty, the default group is the username"
+            type: "str"
+            required: false
+            default: "user_name"
+          user_home:
+            description: "Path to user's home directory"
+            type: "str"
+            required: true
+          user_password:
+            description: "User password."
+            type: "str"
+            required: true
+          user_shell:
+            description: "User shell."
+            type: "str"
+            required: false
+            default: "/bin/bash"
+          user_uid:
+            description: "User uid."
+            type: "int"
+            required: false
