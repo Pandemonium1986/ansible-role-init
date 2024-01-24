@@ -20,4 +20,4 @@
     group: root
     remote_src: true
     force: false
-  when: _init_distribution_version == "tumbleweed"
+  when: _global_distribution_version == "tumbleweed"
