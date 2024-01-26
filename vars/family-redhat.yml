@@ -5,7 +5,6 @@ _packages_ansible_bootstrap:
   - sudo
 
 _packages:
-  - audacity
   - bind-utils
   - ca-certificates
   - chromium

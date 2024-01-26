@@ -21,3 +21,10 @@
     remote_src: true
     force: false
   when: _global_distribution_version == "tumbleweed"
+
+- name: Ensure openSUSE Factory network:utilities repo are enabled
+  community.general.zypper_repository:
+    repo: "https://download.opensuse.org/repositories/network:utilities/openSUSE_Factory/network:utilities.repo"
+    enabled: true
+    auto_import_keys: true
+  when: _global_distribution_version == "tumbleweed"

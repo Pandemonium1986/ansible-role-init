@@ -12,7 +12,6 @@
       register: apps_res
       ignore_errors: true
       loop:
-        - "which audacity"
         # - "chromium --version"
         - "clamscan --version"
         - "curl --version"

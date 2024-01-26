@@ -1,7 +1,7 @@
 ---
 argument_specs:
   main:
-    short_description: Main entry point for the init role
+    short_description: Install and configure a lot of packages to initialize a linux environment # yamllint disable-line rule:line-length
     description:
       - This is the main entrypoint for the init role.
       - There are only two dictionary lists available for this role init_users and init_groups
