@@ -27,6 +27,7 @@ _packages:
   - remmina-plugin-rdp
   - remmina-plugin-vnc
   - tmux
+  - tmux-powerline
   - tree
   - unzip
   - vim
