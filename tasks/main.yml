@@ -64,7 +64,7 @@
     ssh_key_type: rsa
     state: present
     uid: "{{ item.user_uid | default(omit) }}"
-    update_password: on_create
+    update_password: "{{ item.user_update_password | default('on_create') }}"
   loop: "{{ init_users | flatten(levels=1) }}"
 
 - name: Copy ssh banner

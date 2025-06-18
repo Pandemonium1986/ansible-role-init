@@ -11,3 +11,4 @@ init_users:
     user_password: $6$salt$IxDD3jeSOb5eB1CX5LBsqZFVkJdido3OUILO5Ifz5iwMuTS4XMS130MTSuDDl3aCI6WouIL9AjRbLCelDCy.g.
     user_shell: "/bin/zsh"
     user_uid: "1000"
+    user_update_password: "on_create"
