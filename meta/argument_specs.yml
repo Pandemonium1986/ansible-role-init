@@ -60,3 +60,9 @@ argument_specs:
             description: "User uid."
             type: "int"
             required: false
+          user_update_password:
+            description: "Update password. Provides the ability to update the password"
+            type: "str"
+            required: false
+            default: "on_create"
+            version_added: 4.2.0
