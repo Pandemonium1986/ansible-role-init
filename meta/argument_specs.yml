@@ -61,7 +61,7 @@ argument_specs:
             type: "int"
             required: false
           user_update_password:
-            description: "User shell."
+            description: "Update password. Provides the ability to update the password"
             type: "str"
             required: false
             default: "on_create"
